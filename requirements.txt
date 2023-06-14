@@ -3,3 +3,4 @@ ipykernel
 scikit-build
 pyvista
 pythreejs
+trame
