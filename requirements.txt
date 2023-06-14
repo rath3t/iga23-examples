@@ -1,3 +1,5 @@
 black
 ipykernel
 scikit-build
+pyvista
+pythreejs
