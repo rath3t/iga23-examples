@@ -1,0 +1,23 @@
+{
+  "image": "ikarusproject/ikarus:latest",
+	"containerUser": "root",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.cmake-tools",
+				"ms-vscode.cpptools-extension-pack",
+				"ms-toolsai.jupyter",
+				"ms-python.python"
+			],
+			"settings": {
+				"python.pythonPath": "/dune/dune-common/build-cmake/dune-env/bin/python",
+				"python.defaultInterpreterPath": "/dune/dune-common/build-cmake/dune-env/bin/python",
+				"python.formatting.provider": "black",
+				"python.linting.enabled": true
+			
+		}
+		}
+	},
+	"postCreateCommand": "pip install -r requirements.txt"
+  }
