@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
   using Grid = Dune::UGGrid<gridDim>;
 
   Eigen::Vector<int, 4> easSet;
-  easSet << 0;
+  easSet << 0,4,5,7;
 
   std::vector<double> dofsVec;
   std::vector<int> timeVec;
