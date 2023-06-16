@@ -1,0 +1,12 @@
+################################
+# Dune module information file #
+################################
+
+# Name of the module
+Module: iga23-examples
+Version: 0.1
+Maintainer: mueller@ibb.uni-stuttgart.de
+# Required build dependencies
+Depends: ikarus dune-iga
+# Optional build dependencies
+#Suggests:

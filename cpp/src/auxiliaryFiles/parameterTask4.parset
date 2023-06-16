@@ -1,0 +1,15 @@
+[GridParameters]
+refinement = 3
+boundaryloadpredicate = lambda x: ( x[0]>11.99999 )
+filename=beam_distorted.msh
+#filename=beam_unstructured.msh
+
+[ControlParameters]
+
+[MaterialParameters]
+E      = 1000.0
+nu     = 0.0
+
+[ElementParameters]
+numberOfEASParameters = 5
+[]
