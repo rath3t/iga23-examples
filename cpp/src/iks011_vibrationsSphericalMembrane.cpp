@@ -10,6 +10,13 @@
 #include <iostream>
 #include <numbers>
 
+#include <dune/grid/uggrid.hh>
+#include <dune/alugrid/grid.hh>
+#include <dune/grid/io/file/gmshreader.hh>
+#include <dune/common/parametertreeparser.hh>
+#include <dune/functions/functionspacebases/interpolate.hh>
+#include <dune/functions/functionspacebases/lagrangebasis.hh>
+#include <dune/functions/functionspacebases/powerbasis.hh>
 #include <dune/functions/gridfunctions/analyticgridviewfunction.hh>
 #include <dune/functions/gridfunctions/discreteglobalbasisfunction.hh>
 #include <dune/grid/io/file/vtk/subsamplingvtkwriter.hh>
@@ -20,21 +27,18 @@
 int main(int argc, char **argv) {
     Ikarus::init(argc, argv);
     using namespace Dune;
-
-    /// TODO: Declare the variables gridDim and dimWorld
-
-    /// TODO: Read the sphere.msh file using Dune::GmshReader
-
-    /// TODO: Get the gridView
+    constexpr int gridDim = 2;
+    constexpr int dimWorld = 3;
+    using Grid = Dune::ALUGrid<gridDim, dimWorld, Dune::simplex, Dune::conforming>;
+    auto grid = Dune::GmshReader<Grid>::read("auxiliaryFiles/sphere.msh", false, false);
+    grid->globalRefine(0);
+    auto gridView = grid->leafGridView();
 
     spdlog::info("Number of elements: {}", gridView.size(0));
     spdlog::info("Number of vertices: {}", gridView.size(2));
 
     using namespace Dune::Functions::BasisFactory;
-
-    /// TODO: Create a power basis of size 3 using Lagrange basis of second order
-
-
+    auto globalbasis = makeBasis(gridView, power<3>(lagrange<1>(), FlatInterleaved()));
     spdlog::info("Number of degrees of freedom: {}", globalbasis.size());
 
     std::vector<double> values;
@@ -58,12 +62,13 @@ int main(int argc, char **argv) {
             return UX;
         };
 
-        /// TODO: Interpolation of the given function on the sphere
+        values.resize(globalbasis.size());
+        Dune::Functions::interpolate(globalbasis, values, f);
 
         /// Write *.vtu files
         auto fh = Dune::Functions::makeDiscreteGlobalBasisFunction<Dune::FieldVector<double, 3>>(globalbasis, values);
 
-        //usage of SubSamplingVTKWriter it subsamples each element and writes this dummy grid to vtk
+        /// Usage of SubSamplingVTKWriter it subsamples each element and writes this dummy grid to vtk
         Dune::SubsamplingVTKWriter vtkWriter(gridView, Dune::refinementLevels(2), Dune::VTK::conforming);
         vtkWriter.addVertexData(fh, VTK::FieldInfo("discreteVibration", VTK::FieldInfo::Type::vector, 3));
         vtkWriter.write("vibrationSphereInterpolation" + std::to_string(ts));
