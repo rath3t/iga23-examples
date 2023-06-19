@@ -316,5 +316,5 @@ int main(int argc, char **argv) {
   //  f->draw();
   save("ConvergenceplotKirchhoffPlate.png");
   using namespace std::chrono_literals;
-  std::this_thread::sleep_for(5s);
+  // std::this_thread::sleep_for(5s);
 }

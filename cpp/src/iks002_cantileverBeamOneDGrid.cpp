@@ -106,7 +106,7 @@ unsigned int getGlobalDofId(TimoshenkoBeam requestedQuantity, const auto &basis,
     DUNE_THROW(Dune::InvalidStateException, "The requested quantity is not supported");
 }
 
-void plotDeformedTimoschenkoBeam(auto &gridView, auto &basis, auto &d_glob, double EI, double GA, double L, double F) {
+void plotDeformedTimoschenkoBeam(auto &gridView, auto &basis, auto &d_glob, double EI, double GA, double L, double F, int example) {
   using namespace Dune::Indices;
   auto wGlobal   = makeDiscreteGlobalBasisFunction<double>(subspaceBasis(basis.flat(), _0), d_glob);
   auto phiGlobal = makeDiscreteGlobalBasisFunction<double>(subspaceBasis(basis.flat(), _1), d_glob);
@@ -147,7 +147,7 @@ void plotDeformedTimoschenkoBeam(auto &gridView, auto &basis, auto &d_glob, doub
     yphiAna = transform(x, [&](auto x) { return phiLocalAnalytic({x}); });
 
     auto l0 = ax1->plot(x_L, yw);
-    l0->line_width(2);
+    l0->line_width(4);
     l0->color("blue");
 
     auto l0_ana = ax1->plot(x_L, ywAna);
@@ -155,12 +155,13 @@ void plotDeformedTimoschenkoBeam(auto &gridView, auto &basis, auto &d_glob, doub
     l0_ana->color("red");
 
     auto l1 = ax2->plot(x_L, yphi);
-    l1->line_width(2);
+    l1->line_width(4);
     l1->color("blue");
 
     auto l1_ana = ax2->plot(x_L, yphiAna);
     l1_ana->line_width(2);
     l1_ana->color("red");
+    save("CantileverBeam" + std::to_string(example) + ".png");
   }
 
   //  f->draw();
@@ -168,7 +169,7 @@ void plotDeformedTimoschenkoBeam(auto &gridView, auto &basis, auto &d_glob, doub
   //  std::this_thread::sleep_for(5s);
 }
 
-void exampleTimoshenkoBeam(const int polynomialOrderW, const int polynomialOrderPhi, const int numElements) {
+void exampleTimoshenkoBeam(const int polynomialOrderW, const int polynomialOrderPhi, const int numElements, const int example) {
   const double b  = 1;
   const double L  = 10;
   const double E  = 1000;
@@ -233,13 +234,13 @@ void exampleTimoshenkoBeam(const int polynomialOrderW, const int polynomialOrder
   // / (3.0 * EI) << "\n";
 
   // plot the result
-  plotDeformedTimoschenkoBeam(gridView, basis, dGlobal, EI, GA, L, F);
+  plotDeformedTimoschenkoBeam(gridView, basis, dGlobal, EI, GA, L, F, example);
 }
 
 int main(int argc, char **argv) {
   Ikarus::init(argc, argv);
-  exampleTimoshenkoBeam(1, 1, 10);
-  exampleTimoshenkoBeam(2, 1, 10);
-  exampleTimoshenkoBeam(2, 2, 10);
-  exampleTimoshenkoBeam(3, 2, 10);
+  exampleTimoshenkoBeam(1, 1, 10, 1);
+  exampleTimoshenkoBeam(2, 1, 10, 2);
+  exampleTimoshenkoBeam(2, 2, 10, 3);
+  exampleTimoshenkoBeam(3, 2, 10, 4);
 }

@@ -21,12 +21,12 @@
 #include <Eigen/Dense>
 #include <dune/common/parametertreeparser.hh>
 
-#define GridDim 2
+#define GridDim 3
 
 int main(int argc, char **argv) {
     Dune::MPIHelper::instance(argc, argv);
     Dune::ParameterTree parameterSet;
-    Dune::ParameterTreeParser::readINITree(argv[1], parameterSet);
+    Dune::ParameterTreeParser::readINITree("/workspaces/iga23-examples/cpp/src/auxiliaryFiles/parameterTask1.parset", parameterSet);
 
     const int refinementLevels = parameterSet.get<int>("refinementLevels");
     using namespace Dune;

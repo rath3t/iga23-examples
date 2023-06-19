@@ -210,6 +210,7 @@ int main(int argc, char **argv) {
   p[0]->line_width(2);
   p[1]->line_width(2);
   p[1]->marker(line_spec::marker_style::asterisk);
+  save("vonMisesTruss.png");
   // f->draw();
   //  using namespace std::chrono_literals;
   //  std::this_thread::sleep_for(5s);

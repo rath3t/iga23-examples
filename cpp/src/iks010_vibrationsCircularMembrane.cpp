@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     Ikarus::init(argc, argv);
 
     Dune::ParameterTree parameterSet;
-    Dune::ParameterTreeParser::readINITree(argv[1], parameterSet);
+    Dune::ParameterTreeParser::readINITree("/workspaces/iga23-examples/cpp/src/auxiliaryFiles/parameterTask3.parset", parameterSet);
 
     const int refinementLevels = parameterSet.get<int>("refinementLevels");
     using namespace Dune;
