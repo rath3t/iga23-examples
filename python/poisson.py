@@ -128,7 +128,7 @@ def globalAssembler(basis):
 ############################### START ########################################
 
 # create a trimmed grid from file
-reader = (readeriga.json, "../../iga/test/auxiliaryFiles/element_trim_xb.ibra")
+reader = (readeriga.json, "/workspaces/iga23-examples/python/element_trim_xb.ibra")
 
 gridView = IGAGrid(reader, dimgrid=2, dimworld=2)
 gridView.hierarchicalGrid.globalRefine(2)
@@ -147,7 +147,7 @@ vtkWriter = gridView.trimmedVtkWriter()
 discreteFunction = basis.asFunction(x)
 
 vtkWriter.addPointData(discreteFunction, name="g")
-vtkWriter.write(name="Poisson")
+vtkWriter.write(name="/workspaces/iga23-examples/python/Poisson")
 
 xTest = [
     0.0,
