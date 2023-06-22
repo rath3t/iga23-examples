@@ -116,5 +116,5 @@ if __name__ == "__main__":
     displacementFunc = flatBasis.asFunction(dBig)
     vtkWriter = gridView.trimmedVtkWriter()
     vtkWriter.addPointData(displacementFunc, name="displacement")
-    vtkWriter.write("KLshell")
+    vtkWriter.write("/workspaces/iga23-examples/python/KLshell")
     assert (0.6719017274300256 - max(d)) < 1e-6
