@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
 import ikarus as iks
-import ikarus.finiteElements
+#print(help(iks))
+import ikarus.finite_elements
 import ikarus.utils
 import ikarus.assembler
 import ikarus.dirichletValues
