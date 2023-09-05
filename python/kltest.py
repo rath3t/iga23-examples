@@ -3,7 +3,7 @@
 
 import ikarus as iks
 #print(help(iks))
-import ikarus.finite_elements
+import ikarus.finiteElements
 import ikarus.utils
 import ikarus.assembler
 import ikarus.dirichletValues
